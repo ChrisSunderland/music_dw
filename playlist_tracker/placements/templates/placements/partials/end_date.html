@@ -1,0 +1,25 @@
+<div class="btn-group">
+    <select class="form-select py-2 border-right-0 border rounded"
+            name="end_date"
+            style="..."
+            hx-trigger="change"
+            hx-get="{% url 'placement-display' %}"
+            hx-target="#placements-summary"
+            hx-params="*"
+
+    >
+        <option selected disabled>Choose End Date</option>
+        {% for data in end_dates_data %}
+            <option value="{{ data }}">{{ data.2 }}</option>
+        {% endfor %}
+    </select>
+    <div style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); pointer-events: none;">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</div>
+
+
+
+
+
+

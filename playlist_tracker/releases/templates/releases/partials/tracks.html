@@ -1,0 +1,14 @@
+<div class="btn-group">
+    <select class="form-select py-2 border-right-0 border rounded"
+            name="track_dropdown"
+            style="width: auto; min-width: 150px; max-width: 250px;"
+            hx-trigger="change"
+            hx-get="{% url 'track-plot' %}"
+            hx-target="#plot-container"
+            hx-params="*">
+        <option selected disabled>Choose Track</option>
+        {% for release in releases %}
+            <option value="{{ release }}">{{ release.1 }}</option>
+        {% endfor %}
+    </select>
+</div>

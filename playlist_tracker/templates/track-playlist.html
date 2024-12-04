@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if results %}
+    <p style="color: white;">Now tracking "{{ query }}".</p>
+{% else %}
+    <p>Oops...still not tracking "{{ query }}".</p>
+{% endif %}
+{% endblock %}

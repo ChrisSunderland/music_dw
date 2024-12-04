@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<form method="GET" action="." class="py-4 px-1 mx-auto">
+    <div class="d-flex align-items-start">
+        <!-- Search Input -->
+        <div class="form-group mx-2">
+            <div class="input-group shadow-sm rounded">
+                <input
+                    class="form-control py-2 border-right-0 border rounded"
+                    type="search"
+                    id="search-input"
+                    name="label_search"
+                    placeholder="Search track by label..."
+                    autocomplete="off"
+                    list="keyword-suggestions"
+                    hx-trigger="input changed delay:500ms"
+                    hx-get="{% url 'artists' %}"
+                    hx-target="#second-dropdown"
+                    hx-params="*"
+                />
+                <datalist id="keyword-suggestions"></datalist>
+            </div>
+        </div>
+
+        <div id="second-dropdown" class="form-group mx-2">
+            {% include 'releases/partials/artists.html' %}
+        </div>
+
+        <div id="third-dropdown" class="form-group mx-2">
+            {% include 'releases/partials/tracks.html' %}
+        </div>
+    </div>
+</form>
+
+<div id="plot-container" class="mt-3">
+    {% include 'releases/partials/track_plot.html' %}
+</div>
+
+<script>
+
+    const keywords = {{ labels|safe }};
+
+    document.getElementById('search-input').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        const suggestions = document.getElementById('keyword-suggestions');
+
+        // Filter keywords based on input
+        const filteredKeywords = keywords.filter(keyword =>
+            keyword.toLowerCase().startsWith(query)
+        );
+
+        suggestions.innerHTML = ''; // Clear previous suggestions
+        filteredKeywords.forEach(keyword => {
+            const option = document.createElement('option');
+            option.value = keyword;
+            suggestions.appendChild(option);
+        });
+    });
+</script>
+{% endblock %}

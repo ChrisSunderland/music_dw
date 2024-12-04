@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<form method="GET" action="." class="py-4 px-1 mx-auto">
+
+    <div class="d-flex align-items-start">
+
+         <div class="btn-group">
+            <select class="form-select py-2 border-right-0 border rounded"
+                    name="playlist_dropdown"
+                    style="width: auto; min-width: 150px; max-width: 250px;"
+                    hx-trigger="change"
+                    hx-get="{% url 'start-date' %}"
+                    hx-target="#date-dropdown-1"
+                    hx-params="*">
+                <option selected disabled>Choose Playlist</option>
+                {% for playlist in playlist_data %}
+                    <option value="{{ playlist }}">{{ playlist.1 }}</option>
+                {% endfor %}
+            </select>
+            <div style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); pointer-events: none;">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <div id="date-dropdown-1" class="form-group mx-2">
+            {% include 'placements/partials/start_date.html' %}
+        </div>
+
+        <div id="date-dropdown-2" class="form-group mx-2">
+            {% include 'placements/partials/end_date.html' %}
+        </div>
+
+    </div>
+</form>
+
+<div id="placements-summary" class="mt-3">
+    {% include 'placements/partials/placement_display.html' %}
+</div>
+
+{% endblock %}

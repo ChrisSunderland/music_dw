@@ -1,0 +1,17 @@
+<div class="btn-group">
+    <select class="form-select py-2 border-right-0 border rounded"
+            name="artist_dropdown"
+            style="width: auto; min-width: 150px; max-width: 250px;"
+            hx-trigger="change"
+            hx-get="{% url 'tracks' %}"
+            hx-target="#third-dropdown"
+            hx-params="*">
+        <option selected disabled>Choose Artist</option>
+        {% for artist in artist_data %}
+            <option value="{{ artist }}">{{ artist.2 }}</option>
+        {% endfor %}
+    </select>
+    <div style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); pointer-events: none;">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</div>
